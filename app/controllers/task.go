@@ -1,14 +1,15 @@
 package controllers
 
 import (
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/astaxie/beego"
 	libcron "github.com/lisijie/cron"
 	"github.com/lisijie/webcron/app/jobs"
 	"github.com/lisijie/webcron/app/libs"
 	"github.com/lisijie/webcron/app/models"
-	"strconv"
-	"strings"
-	"time"
 )
 
 type TaskController struct {
@@ -25,6 +26,22 @@ func (this *TaskController) List() {
 	filters := make([]interface{}, 0)
 	if groupId > 0 {
 		filters = append(filters, "group_id", groupId)
+	}
+	runstatus, _ := this.GetInt("runstatus")
+	//fmt.Printf("runstatus---%d\n", groupId)
+	if runstatus > 0 {
+		var check_status int = runstatus
+		if runstatus == 2 {
+			check_status = 0
+		}
+		filters = append(filters, "status", check_status)
+	}
+	this.Data["runstatus"] = runstatus
+	commands := strings.TrimSpace(this.GetString("command"))
+	if commands != "" {
+		this.Data["search_title"] = commands
+		//-- contains大小写敏感, icontains(大小写不敏感)匹配包含 commands 的字符
+		filters = append(filters, "command__icontains", commands)
 	}
 	result, count := models.TaskGetList(page, this.pageSize, filters...)
 
@@ -61,6 +78,8 @@ func (this *TaskController) List() {
 
 	// 分组列表
 	groups, _ := models.TaskGroupGetList(1, 100)
+
+	//fmt.Println("url", beego.URLFor("TaskController.List", "groupid", groupId))
 
 	this.Data["pageTitle"] = "任务列表"
 	this.Data["list"] = list
