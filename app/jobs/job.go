@@ -145,7 +145,13 @@ func (j *Job) Run() {
 		log.Status = models.TASK_ERROR
 		log.Error = err.Error() + ":" + cmdErr
 	}
-	j.logId, _ = models.TaskLogAdd(log)
+
+	// 是否记录日志
+	if (j.task.IsLog == 1) {
+		j.logId, _ = models.TaskLogAdd(log)
+	} else {
+		j.logId = 0
+	}
 
 	// 更新上次执行时间
 	j.task.PrevTime = t.Unix()

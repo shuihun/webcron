@@ -21,6 +21,7 @@ type Task struct {
 	Description  string
 	CronSpec     string
 	Concurrent   int
+	IsLog        int
 	Command      string
 	Status       int
 	Notify       int

@@ -53,6 +53,19 @@
 						<p class="help-block">设为“是”的话，如果该任务在上一个时间点还没执行完，则略过不执行</p>
 					</div>	<!-- /controls -->			
 				</div> <!-- /control-group -->
+
+				<div class="control-group">											
+					<label class="control-label">是否记录执行日志</label>
+					<div class="controls">
+						<label class="radio inline">
+							<input type="radio" value="1" name="is_log" {{if eq .task.IsLog 1}}checked{{end}}> 是
+						</label>
+						<label class="radio inline">
+							<input type="radio" value="0" name="is_log" {{if eq .task.IsLog 0}}checked{{end}}> 否
+						</label>
+						<p class="help-block">设为“否”的话，任务执行不记录日志</p>
+					</div>	<!-- /controls -->			
+				</div> <!-- /control-group -->
 				
 				<div class="control-group">											
 					<label class="control-label" for="cron_spec">cron表达式</label>

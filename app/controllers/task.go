@@ -103,6 +103,7 @@ func (this *TaskController) Add() {
 		task.Command = strings.TrimSpace(this.GetString("command"))
 		task.Notify, _ = this.GetInt("notify")
 		task.Timeout, _ = this.GetInt("timeout")
+		task.IsLog, _ = this.GetInt("is_log")
 
 		notifyEmail := strings.TrimSpace(this.GetString("notify_email"))
 		if notifyEmail != "" {
@@ -157,6 +158,7 @@ func (this *TaskController) Edit() {
 		task.Command = strings.TrimSpace(this.GetString("command"))
 		task.Notify, _ = this.GetInt("notify")
 		task.Timeout, _ = this.GetInt("timeout")
+		task.IsLog, _ = this.GetInt("is_log")
 
 		notifyEmail := strings.TrimSpace(this.GetString("notify_email"))
 		if notifyEmail != "" {

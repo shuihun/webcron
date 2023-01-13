@@ -1,1 +1,6 @@
 go build -o webcron.exe main.go
+
+
+# 允许相关命令
+
+go mod tidy   # 下载依赖

@@ -7,6 +7,7 @@ CREATE TABLE `t_task` (
   `description` varchar(200) NOT NULL DEFAULT '' COMMENT '任务描述',
   `cron_spec` varchar(100) NOT NULL DEFAULT '' COMMENT '时间表达式',
   `concurrent` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否只允许一个实例',
+  `is_log` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0-不记录日志 1-记录日志',
   `command` text NOT NULL COMMENT '命令详情',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0停用 1启用',
   `notify` tinyint(4) NOT NULL DEFAULT '0' COMMENT '通知设置',
